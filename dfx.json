@@ -15,6 +15,11 @@
       "candid": "src/most_minimal_script_app_backend/most_minimal_script_app_backend.did",
       "package": "most_minimal_script_app_backend",
       "type": "rust"
+    },
+    "share_tpk_backend": {
+      "type": "rust",
+      "package": "share_tpk_backend",
+      "candid": "src/share_tpk_backend/share_tpk_backend.did"
     }
   },
   "defaults": {

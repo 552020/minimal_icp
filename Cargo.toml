@@ -1,5 +1,6 @@
 [workspace]
 members = [
-    "src/most_minimal_script_app_backend"
+    "src/most_minimal_script_app_backend",
+	"src/share_tpk_backend"
 ]
 resolver = "2"
