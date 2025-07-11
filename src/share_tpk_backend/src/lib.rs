@@ -1,18 +1,15 @@
 // === Imports ===
 
-use candid::CandidType;
+use candid::{CandidType, Principal};
 use ic_cdk::api::caller;
 use ic_cdk_macros::export_candid;
-use ic_principal::Principal;
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
-use std::cell::RefCell;
-use std::rc::Rc;
+use ic_stable_structures::memory_manager::{MemoryId, MemoryManager, VirtualMemory};
 use ic_stable_structures::StableBTreeMap;
-use ic_stable_structures::memory_manager::{MemoryManager, VirtualMemory};
-use ic_stable_structures::DefaultMemoryImpl;
-use once_cell::sync::Lazy;
-use std::sync::Mutex;
+use ic_stable_structures::{storable::Bound, DefaultMemoryImpl, Storable};
+use serde::{Deserialize, Serialize};
+use std::borrow::Cow;
+use std::cell::RefCell;
+use std::collections::HashMap;
 
 // === Data Structures ===
 
@@ -23,24 +20,31 @@ pub struct User {
     pub public_key: Vec<u8>,
 }
 
-// === In-memory Users Map ===
+impl Storable for User {
+    fn to_bytes(&self) -> Cow<[u8]> {
+        Cow::Owned(serde_cbor::to_vec(self).expect("failed to serialize"))
+    }
 
-thread_local! {
-    static USERS: RefCell<HashMap<Principal, User>> = RefCell::new(HashMap::new());
+    fn from_bytes(bytes: Cow<[u8]>) -> Self {
+        serde_cbor::from_slice(&bytes).expect("failed to deserialize")
+    }
+
+    const BOUND: Bound = Bound::Unbounded;
 }
 
-// === Stable Memory Users Map ===
+// === Memory Management ===
 
 type Memory = VirtualMemory<DefaultMemoryImpl>;
 
-static MEMORY_MANAGER: Lazy<Mutex<MemoryManager<DefaultMemoryImpl>>> = Lazy::new(|| {
-    Mutex::new(MemoryManager::init(DefaultMemoryImpl::default()))
-});
-
 thread_local! {
+    static MEMORY_MANAGER: RefCell<MemoryManager<DefaultMemoryImpl>> =
+        RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
+
+    static USERS: RefCell<HashMap<Principal, User>> = RefCell::new(HashMap::new());
+
     static STABLE_USERS: RefCell<StableBTreeMap<Principal, User, Memory>> = RefCell::new(
         StableBTreeMap::init(
-            MEMORY_MANAGER.lock().unwrap().get(0)
+            MEMORY_MANAGER.with_borrow(|m| m.get(MemoryId::new(0)))
         )
     );
 }
@@ -61,7 +65,9 @@ fn register_user(public_key: Vec<u8>) -> String {
     // Insert into in-memory map
     USERS.with(|users| {
         let mut users = users.borrow_mut();
-        users.entry(caller_principal).or_insert_with(|| user.clone());
+        users
+            .entry(caller_principal)
+            .or_insert_with(|| user.clone());
     });
 
     // Insert into stable memory map
