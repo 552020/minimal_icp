@@ -1,17 +1,29 @@
 {
-  "name": "scripts",
+  "name": "vetkey-file-sharing",
   "version": "1.0.0",
+  "description": "Incremental development of a secure file sharing system using Internet Computer canisters and VetKeys for end-to-end encryption",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "alice:share-ptk": "cd scripts && npx tsx alice_share_ptk.ts",
+    "general:greet": "cd scripts && npx tsx general_greet.ts"
   },
+  "keywords": [
+    "internet-computer",
+    "vetkeys",
+    "file-sharing",
+    "encryption",
+    "typescript",
+    "rust",
+    "canisters"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@dfinity/agent": "^2.4.1",
     "@dfinity/identity": "^2.4.1",
+    "@dfinity/vetkeys": "^0.3.0",
     "fs": "^0.0.1-security",
     "path": "^0.12.7"
   },

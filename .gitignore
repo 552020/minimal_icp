@@ -23,4 +23,4 @@ dist/
 
 # environment variables
 .env
-scripts/alice_identity.json
+scripts/alice_share_ptk_identity.json

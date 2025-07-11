@@ -1,5 +1,5 @@
 [package]
-name = "most_minimal_script_app_backend"
+name = "basic_demo_backend"
 version = "0.1.0"
 edition = "2021"
 

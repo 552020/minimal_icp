@@ -11,9 +11,9 @@
       "type": "custom",
       "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
     },
-    "most_minimal_script_app_backend": {
-      "candid": "src/most_minimal_script_app_backend/most_minimal_script_app_backend.did",
-      "package": "most_minimal_script_app_backend",
+    "basic_demo_backend": {
+      "candid": "src/basic_demo_backend/basic_demo_backend.did",
+      "package": "basic_demo_backend",
       "type": "rust"
     },
     "share_tpk_backend": {

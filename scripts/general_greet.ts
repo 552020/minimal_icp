@@ -3,8 +3,8 @@
 import { HttpAgent, Actor } from "@dfinity/agent";
 import { Ed25519KeyIdentity } from "@dfinity/identity";
 // import { idlFactory, canisterId } from "../declarations/backend"; // Adjust path as neededyyp
-// import { idlFactory, canisterId } from "../src/declarations/most_minimal_script_app_backend"; // Adjust path as neededyyp
-import { idlFactory } from "../src/declarations/most_minimal_script_app_backend"; // Adjust path as neededyyp
+// import { idlFactory, canisterId } from "../src/declarations/basic_demo_backend"; // Adjust path as neededyyp
+import { idlFactory } from "../src/declarations/basic_demo_backend"; // Adjust path as neededyyp
 
 import canisterIds from "../.dfx/local/canister_ids.json" assert { type: "json" };
 
@@ -15,7 +15,7 @@ console.log("Ed25519KeyIdentity:", Ed25519KeyIdentity);
 console.log("idlFactory:", idlFactory);
 console.log("canisterIds:", canisterIds);
 
-const canisterId = canisterIds["most_minimal_script_app_backend"].local;
+const canisterId = canisterIds["basic_demo_backend"].local;
 
 // 1. Generate a new identity (or load from PEM if you want persistence)
 const identity = Ed25519KeyIdentity.generate();

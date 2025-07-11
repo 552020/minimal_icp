@@ -1,8 +1,8 @@
-# alice_identity.ts - JSON Parsing Bug Documentation
+# alice_share_ptk.ts - JSON Parsing Bug Documentation
 
 ## The Problem
 
-The `alice_identity.ts` script was failing to load existing Ed25519 identities from the saved JSON file, causing this error:
+The `alice_share_ptk.ts` script was failing to load existing Ed25519 identities from the saved JSON file, causing this error:
 
 ```
 SyntaxError: Unexpected non-whitespace character after JSON at position 3 (line 1 column 4)
@@ -69,7 +69,7 @@ if (fs.existsSync(IDENTITY_PATH)) {
 
 ### File Contents
 
-The `alice_identity.json` file contains an array of two hexadecimal strings representing the Ed25519 key pair:
+The `alice_share_ptk_identity.json` file contains an array of two hexadecimal strings representing the Ed25519 key pair:
 
 ```json
 [
@@ -125,14 +125,14 @@ const rawJson = fs.readFileSync(IDENTITY_PATH, "utf-8");
 
 ### Before Fix
 ```bash
-npx tsx alice_identity.ts  # First run: ✅ Works (generates new)
-npx tsx alice_identity.ts  # Second run: ❌ Fails (can't load existing)
+npx tsx alice_share_ptk.ts  # First run: ✅ Works (generates new)
+npx tsx alice_share_ptk.ts  # Second run: ❌ Fails (can't load existing)
 ```
 
 ### After Fix
 ```bash
-npx tsx alice_identity.ts  # First run: ✅ Works (generates new)
-npx tsx alice_identity.ts  # Second run: ✅ Works (loads existing)
+npx tsx alice_share_ptk.ts  # First run: ✅ Works (generates new)
+npx tsx alice_share_ptk.ts  # Second run: ✅ Works (loads existing)
 ```
 
 ### Verification Output

@@ -16,7 +16,7 @@ import canisterIds from "../.dfx/local/canister_ids.json" assert { type: "json" 
 
 const canisterId = canisterIds["share_tpk_backend"].local;
 
-const IDENTITY_PATH = path.join(path.dirname(new URL(import.meta.url).pathname), "alice_identity.json");
+const IDENTITY_PATH = path.join(path.dirname(new URL(import.meta.url).pathname), "alice_share_ptk_identity.json");
 // Simulate Alice's identity
 // const aliceIdentity = Ed25519KeyIdentity.generate();
 let aliceIdentity: Ed25519KeyIdentity;
