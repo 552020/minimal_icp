@@ -7,7 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "alice:share-ptk": "cd scripts && npx tsx alice_share_ptk.ts",
-    "general:greet": "cd scripts && npx tsx general_greet.ts"
+    "general:greet": "cd scripts && npx tsx general_greet.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "internet-computer",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "prettier": "^3.5.3"
   }
 }
