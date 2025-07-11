@@ -1,17 +1,22 @@
 // Made by ChatGPT
+import fs from "fs"; // Filesystem utilities (used to read/write Alice's identity)
+import path from "path"; // To resolve the path to the identity file
 
-import fs from "fs";
-import path from "path";
 import { HttpAgent, Actor } from "@dfinity/agent";
 import { Ed25519KeyIdentity } from "@dfinity/identity";
-// import { idlFactory, canisterId } from "../src/declarations/most_minimal_script_app_backend";
-import { idlFactory } from "../src/declarations/most_minimal_script_app_backend"; // Adjust path as neededyyp
+import { TransportSecretKey } from "@dfinity/vetkeys";
+
+const transportKey = TransportSecretKey.random();
+const transportPublicKey = transportKey.publicKeyBytes(); // Uint8Array
+
+// import { idlFactory, canisterId } from "../src/declarations/share_tpk_backend";
+import { idlFactory } from "../src/declarations/share_tpk_backend"; // Adjust path as neededyyp
 
 import canisterIds from "../.dfx/local/canister_ids.json" assert { type: "json" };
 
-const canisterId = canisterIds["most_minimal_script_app_backend"].local;
+const canisterId = canisterIds["share_tpk_backend"].local;
 
-const IDENTITY_PATH = path.join(__dirname, "alice_identity.json");
+const IDENTITY_PATH = path.join(path.dirname(new URL(import.meta.url).pathname), "alice_identity.json");
 // Simulate Alice's identity
 // const aliceIdentity = Ed25519KeyIdentity.generate();
 let aliceIdentity: Ed25519KeyIdentity;
@@ -19,7 +24,7 @@ let aliceIdentity: Ed25519KeyIdentity;
 if (fs.existsSync(IDENTITY_PATH)) {
   // Load existing identity
   const raw = fs.readFileSync(IDENTITY_PATH, "utf-8");
-  aliceIdentity = Ed25519KeyIdentity.fromJSON(JSON.parse(raw));
+  aliceIdentity = Ed25519KeyIdentity.fromJSON(raw);
   console.log("Loaded existing identity:", aliceIdentity.getPrincipal().toText());
 } else {
   // Generate and save new identity
@@ -41,7 +46,10 @@ const actor = Actor.createActor(idlFactory, {
 });
 
 // Register Alice with the canister
-await actor.register_user(); // for example
+
+// await actor.register_user(Array.from(transportPublicKey));
+const response = await actor.register_user(Array.from(transportPublicKey));
+console.log("Canister response:", response);
 
 // Now Alice is "logged in" — her Principal is known to the canister
 console.log("Alice Principal:", aliceIdentity.getPrincipal().toText());

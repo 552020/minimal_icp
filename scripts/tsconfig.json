@@ -2,6 +2,7 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "target": "es2020",
     "moduleResolution": "node",
@@ -9,5 +10,9 @@
     "paths": {
       "declarations/*": ["../src/declarations/*"]
     }
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   }
 }
