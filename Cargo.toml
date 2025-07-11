@@ -2,5 +2,6 @@
 members = [
     "src/basic_demo_backend",
     "src/share_tpk_backend",
+    "src/encrypted_files_backend",
 ]
 resolver = "2"

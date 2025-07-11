@@ -1,0 +1,11 @@
+type User = record {
+  "principal" : principal;
+  public_key : blob;
+  registered_at : nat64;
+};
+service : {
+  get_user : () -> (opt User) query;
+  get_user_stable : () -> (opt User) query;
+  greet : (text) -> (text) query;
+  register_user : (blob) -> (text);
+}

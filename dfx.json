@@ -20,6 +20,11 @@
       "type": "rust",
       "package": "share_tpk_backend",
       "candid": "src/share_tpk_backend/share_tpk_backend.did"
+    },
+    "encrypted_files_backend": {
+      "type": "rust",
+      "package": "encrypted_files_backend",
+      "candid": "src/encrypted_files_backend/encrypted_files_backend.did"
     }
   },
   "defaults": {
