@@ -12,16 +12,19 @@ npx tsx <script-name>.ts
 ```
 
 **Prerequisites:**
+
 - dfx local replica running (`dfx start`)
 - Canisters deployed (`dfx deploy`)
 - Node.js dependencies installed (`npm install`)
 
 ## 📁 Scripts Overview
 
-### `alice_share_ptk.ts` 
+### `alice_share_ptk.ts`
+
 **Purpose**: Alice shares her public transport key with the `share_tpk_backend` canister
 
 **What it does:**
+
 - Generates or loads Alice's Ed25519 identity
 - Creates a VetKeys transport secret key
 - Extracts the public transport key
@@ -29,11 +32,13 @@ npx tsx <script-name>.ts
 - Stores identity persistently for subsequent runs
 
 **Usage:**
+
 ```bash
 npx tsx alice_share_ptk.ts
 ```
 
 **First run output:**
+
 ```
 Generated new identity: cue54-baqb7-ia2fc-o7pti-jkszj-eb2vw-tul7k-v5yu3-5o6nl-vzimk-zqe
 Canister response: User cue54-baqb7-ia2fc-o7pti-jkszj-eb2vw-tul7k-v5yu3-5o6nl-vzimk-zqe registered successfully.
@@ -41,6 +46,7 @@ Alice Principal: cue54-baqb7-ia2fc-o7pti-jkszj-eb2vw-tul7k-v5yu3-5o6nl-vzimk-zqe
 ```
 
 **Subsequent runs:**
+
 ```
 Loaded existing identity: cue54-baqb7-ia2fc-o7pti-jkszj-eb2vw-tul7k-v5yu3-5o6nl-vzimk-zqe
 Canister response: User cue54-baqb7-ia2fc-o7pti-jkszj-eb2vw-tul7k-v5yu3-5o6nl-vzimk-zqe registered successfully.
@@ -48,6 +54,7 @@ Alice Principal: cue54-baqb7-ia2fc-o7pti-jkszj-eb2vw-tul7k-v5yu3-5o6nl-vzimk-zqe
 ```
 
 **Key Features:**
+
 - 🔐 **Identity Persistence**: Saves Ed25519 identity to `alice_share_ptk_identity.json`
 - 🔑 **VetKeys Integration**: Generates transport keys for secure communication
 - 💾 **Stable Memory**: Data stored in both memory and stable storage
@@ -56,25 +63,30 @@ Alice Principal: cue54-baqb7-ia2fc-o7pti-jkszj-eb2vw-tul7k-v5yu3-5o6nl-vzimk-zqe
 ---
 
 ### `general_greet.ts`
+
 **Purpose**: Basic canister interaction demo calling the `greet` method
 
 **What it does:**
+
 - Generates a temporary Ed25519 identity
 - Connects to `basic_demo_backend` canister
 - Calls the `greet("ICP")` method
 - Demonstrates basic IC canister communication
 
 **Usage:**
+
 ```bash
 npx tsx general_greet.ts
 ```
 
 **Output:**
+
 ```
 Hello, ICP!
 ```
 
 **Key Features:**
+
 - 🌟 **Simple Demo**: Basic canister interaction example
 - 🔄 **Temporary Identity**: No persistence, generates new identity each run
 - 📝 **Educational**: Shows minimal setup for IC communication
@@ -82,9 +94,10 @@ Hello, ICP!
 ---
 
 ### `new.ts`
+
 **Purpose**: [Add description based on file contents]
 
-*Note: This script needs documentation. Please describe its purpose and usage.*
+_Note: This script needs documentation. Please describe its purpose and usage._
 
 ## 🔧 Configuration
 
@@ -112,6 +125,7 @@ The scripts use ES modules with the following key settings:
 ### Dependencies
 
 Scripts rely on these key packages:
+
 - `@dfinity/agent` - IC HTTP agent for canister communication
 - `@dfinity/identity` - Ed25519 identity management
 - `@dfinity/vetkeys` - VetKeys transport key generation
@@ -120,12 +134,15 @@ Scripts rely on these key packages:
 ## 🗂️ Generated Files
 
 ### Identity Files
+
 - `alice_share_ptk_identity.json` - Alice's persistent Ed25519 identity (gitignored)
 
 **⚠️ Security Note**: Identity files contain private keys and are automatically excluded from git via `.gitignore`.
 
 ### Canister Declarations
+
 Scripts import from `../src/declarations/` which contains:
+
 - TypeScript type definitions (`.d.ts`)
 - Candid interface factories
 - Generated from canister `.did` files
@@ -141,7 +158,8 @@ Scripts import from `../src/declarations/` which contains:
 **Solution**: Run `dfx generate <canister_name>` to generate TypeScript declarations
 
 **Error**: `actor.<method> is not a function`
-**Solution**: 
+**Solution**:
+
 1. Check if method exists in canister's `.did` file
 2. Rebuild canister: `dfx build <canister_name>`
 3. Use `candid-extractor` if automatic generation fails
@@ -173,21 +191,22 @@ Scripts import from `../src/declarations/` which contains:
    - Examples: `alice_share_ptk.ts`, `bob_decrypt_message.ts`
 
 2. **Use consistent structure**:
+
    ```typescript
    // Imports
    import { HttpAgent, Actor } from "@dfinity/agent";
    import { Ed25519KeyIdentity } from "@dfinity/identity";
-   
+
    // Identity management (if needed)
    const identity = Ed25519KeyIdentity.generate();
-   
+
    // Agent setup
    const agent = await HttpAgent.create({
      identity,
      host: "http://127.0.0.1:4943",
    });
    await agent.fetchRootKey();
-   
+
    // Canister interaction
    const actor = Actor.createActor(idlFactory, { agent, canisterId });
    const result = await actor.method_name(params);
@@ -210,9 +229,10 @@ Scripts import from `../src/declarations/` which contains:
 ## 🚀 Next Steps
 
 Potential script additions:
+
 - `bob_retrieve_messages.ts` - Bob decrypts messages from Alice
 - `alice_encrypt_message.ts` - Alice encrypts a message for Bob
 - `admin_view_users.ts` - Admin queries all registered users
 - `benchmarks_performance.ts` - Performance testing for methods
 
-Each new script should follow the established patterns and include comprehensive documentation. 
+Each new script should follow the established patterns and include comprehensive documentation.

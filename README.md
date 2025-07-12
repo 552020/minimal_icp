@@ -5,8 +5,9 @@ An **incremental development project** building a secure file sharing system usi
 ## 🎯 Project Vision
 
 We're incrementally building a complete file sharing ecosystem where:
+
 - **Alice** can securely share files with **Bob**
-- **Bob** can encrypt and upload files for **Alice**  
+- **Bob** can encrypt and upload files for **Alice**
 - All encryption/decryption happens using **VetKeys** for maximum security
 - The system is fully **decentralized** on the Internet Computer
 - **TypeScript scripts** provide easy interaction with **Rust canisters**
@@ -19,14 +20,14 @@ This project follows an **incremental development methodology**:
    - Simple canister interaction with `general_greet.ts`
    - HTTP agent setup and identity management
 
-2. ✅ **Phase 2: Transport Key Sharing** (Completed)  
+2. ✅ **Phase 2: Transport Key Sharing** (Completed)
    - Alice shares her public transport key via `alice_share_ptk.ts`
    - Stable memory integration with user registration
    - VetKeys transport key generation
 
 3. 🚧 **Phase 3: File Upload & Encryption** (In Progress)
    - Bob retrieves Alice's public transport key
-   - Bob encrypts files using VetKeys system  
+   - Bob encrypts files using VetKeys system
    - Bob uploads encrypted files to storage canister
    - Notification system for file sharing
 
@@ -47,13 +48,13 @@ This project follows an **incremental development methodology**:
 
 - **`share_tpk_backend`** - Manages user registration and public transport key sharing
 - **`basic_demo_backend`** - Basic "hello world" canister for testing communication
-- **`file_storage_backend`** *(Coming Soon)* - Handles encrypted file storage and notifications
+- **`file_storage_backend`** _(Coming Soon)_ - Handles encrypted file storage and notifications
 
 ### **Scripts (TypeScript)**
 
 - **`alice_share_ptk.ts`** - Alice shares her public transport key with the system
 - **`general_greet.ts`** - Basic canister communication test
-- **`bob_encrypt_upload_file.ts`** *(Coming Soon)* - Bob encrypts and uploads files for Alice
+- **`bob_encrypt_upload_file.ts`** _(Coming Soon)_ - Bob encrypts and uploads files for Alice
 
 ## 🛠️ Quick Start
 
@@ -116,7 +117,7 @@ This project leverages **VetKeys** for cryptographic operations:
 
 - **Transport Keys**: Enable secure key exchange between users
 - **End-to-End Encryption**: Files are encrypted client-side before upload
-- **Identity Management**: Ed25519 signatures for user authentication  
+- **Identity Management**: Ed25519 signatures for user authentication
 - **Stable Memory**: Persistent storage of user data and keys
 
 ### Example VetKeys Usage
@@ -144,7 +145,7 @@ await actor.register_user(Array.from(publicKey));
 ### Incremental Development Benefits
 
 1. **Testable at Every Stage**: Each phase produces working software
-2. **Clear Progress Tracking**: Visible milestones and deliverables  
+2. **Clear Progress Tracking**: Visible milestones and deliverables
 3. **Risk Mitigation**: Issues caught early in simple components
 4. **Learning-Oriented**: Perfect for understanding IC development
 5. **Maintainable**: Well-documented progression from simple to complex
@@ -152,7 +153,7 @@ await actor.register_user(Array.from(publicKey));
 ### Testing Strategy
 
 - **Unit Tests**: Individual canister methods
-- **Integration Tests**: Script-to-canister communication  
+- **Integration Tests**: Script-to-canister communication
 - **End-to-End Tests**: Complete user workflows
 - **Documentation**: Every bug and fix thoroughly documented
 
